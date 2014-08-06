@@ -29,13 +29,22 @@
 #
 # === Authors
 #
-# Author Name <author@domain.com>
+# Arjen de Rijke <arjenderijke@gmail.com>
 #
 # === Copyright
 #
-# Copyright 2014 Your name here, unless otherwise noted.
+# Copyright 2014 Arjen de Rijke, unless otherwise noted.
 #
 class networkmanager {
 
+  package { 'NetworkManager':
+    ensure => installed,
+  }
 
+  service { 'NetworkManager':
+    enable  => true,
+    ensure  => running,
+    require => Package['NetworkManager'],
+  }
+  
 }
