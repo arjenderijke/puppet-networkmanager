@@ -25,8 +25,18 @@ define networkmanager::interface (
     order   => '02',
   }
 
-  # HWADDR=
-  # NM_CONTROLLED=
+  concat::fragment { "ifcfg-${device}_hwaddr":
+    target  => "ifcfg-${device}",
+    content => "HWADDR=",
+    order   => '03',
+  }
+
+  concat::fragment { "ifcfg-${device}_nmcontrolled":
+    target  => "ifcfg-${device}",
+    content => "NM_CONTROLLED=",
+    order   => '04',
+  }
+
   # IPADDR=
   # NETMASK=
   # NETWORK=
