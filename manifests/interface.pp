@@ -37,9 +37,33 @@ define networkmanager::interface (
     order   => '04',
   }
 
-  # IPADDR=
-  # NETMASK=
-  # NETWORK=
-  # BROADCAST=
-  # ONBOOT=
+  concat::fragment { "ifcfg-${device}_ipaddr":
+    target  => "ifcfg-${device}",
+    content => "IPADDR=",
+    order   => '05',
+  }
+
+  concat::fragment { "ifcfg-${device}_netmask":
+    target  => "ifcfg-${device}",
+    content => "NETMASK=",
+    order   => '06',
+  }
+
+  concat::fragment { "ifcfg-${device}_network":
+    target  => "ifcfg-${device}",
+    content => "NETWORK=",
+    order   => '07',
+  }
+
+  concat::fragment { "ifcfg-${device}_broadcast":
+    target  => "ifcfg-${device}",
+    content => "BROADCAST=",
+    order   => '08',
+  }
+
+  concat::fragment { "ifcfg-${device}_onboot":
+    target  => "ifcfg-${device}",
+    content => "ONBOOT=",
+    order   => '09',
+  }
 }
