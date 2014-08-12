@@ -11,4 +11,4 @@
 #
 include networkmanager
 
-networkmanager::interface { 'interface1': }
+networkmanager::interface { 'interface1': device => 'eth0'}

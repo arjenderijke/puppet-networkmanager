@@ -46,5 +46,8 @@ class networkmanager {
     ensure  => running,
     require => Package['NetworkManager'],
   }
-  
+
+  exec { 'nmcli_con_reload':
+    command => '/usr/bin/nmcli con reload',
+  }  
 }
