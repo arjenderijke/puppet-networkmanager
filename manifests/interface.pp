@@ -13,9 +13,9 @@ define networkmanager::interface (
     fail('You must include the base class before defining an interface')
   }
 
-  validate_bool(nm_controlled)
-  validate_bool(onboot)
-  validate_re($bootproto, '^(none|dhcp)$'
+  validate_bool($nm_controlled)
+  validate_bool($onboot)
+  validate_re($bootproto, '^(none|dhcp)$')
 
   concat { "ifcfg-${device}":
     path   => "/etc/sysconfig/network-scripts/ifcfg-${device}",	 
