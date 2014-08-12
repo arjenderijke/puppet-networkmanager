@@ -24,12 +24,12 @@ define networkmanager::interface (
   validate_bool($peerroutes)
 
   concat { "ifcfg-${device}":
-    path   => "/etc/sysconfig/network-scripts/ifcfg-${device}",
-    ensure => present,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
-    notify => Exec['nmcli_con_reload'],
+    ensure      => present,
+    path        => "/etc/sysconfig/network-scripts/ifcfg-${device}",
+    owner       => 'root',
+    group       => 'root',
+    mode        => '0644',
+    notify      => Exec['nmcli_con_reload'],
     refreshonly => true,
   }
 
