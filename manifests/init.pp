@@ -42,12 +42,12 @@ class networkmanager {
   }
 
   service { 'NetworkManager':
-    enable  => true,
     ensure  => running,
+    enable  => true,
     require => Package['NetworkManager'],
   }
 
   exec { 'nmcli_con_reload':
     command => '/usr/bin/nmcli con reload',
-  }  
+  }
 }

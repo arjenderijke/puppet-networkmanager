@@ -24,7 +24,7 @@ define networkmanager::interface (
   validate_bool($peerroutes)
 
   concat { "ifcfg-${device}":
-    path   => "/etc/sysconfig/network-scripts/ifcfg-${device}",	 
+    path   => "/etc/sysconfig/network-scripts/ifcfg-${device}",
     ensure => present,
     owner  => 'root',
     group  => 'root',
