@@ -9,5 +9,6 @@ describe 'networkmanager' do
                                                   'require' => 'Package[NetworkManager]',
 
                                                   )
+    should contain_package('NetworkManager').with_ensure('installed')
   end
 end
