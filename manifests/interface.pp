@@ -1,3 +1,7 @@
+#
+# networkmanager interface
+#
+
 define networkmanager::interface (
   $device = undef,
   $nm_controlled = true,
