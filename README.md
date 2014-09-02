@@ -1,18 +1,19 @@
-networkmanager
-
-This is the networkmanager module.
+# networkmanager
 
 [![Build Status](https://travis-ci.org/arjenderijke/puppet-networkmanager.svg?branch=master)](https://travis-ci.org/arjenderijke/puppet-networkmanager)
 
-License
+
+This is the networkmanager module.
+
+## License
 -------
 
 
-Contact
+## Contact
 -------
 
 
-Support
+## Support
 -------
 
 Please log tickets and issues at our GitHub site (https://github.com/arjenderijke/puppet-networkmanager)
