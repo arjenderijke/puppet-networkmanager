@@ -34,7 +34,7 @@ define networkmanager::interface (
     group       => 'root',
     mode        => '0644',
     notify      => Exec['nmcli_con_reload'],
-    refreshonly => true,
+    #refreshonly => true,
   }
 
   concat::fragment { "ifcfg-${device}_name":
