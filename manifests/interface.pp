@@ -57,7 +57,7 @@ define networkmanager::interface (
   if ($nm_controlled) {
     $controlledbynm = 'yes'
   } else {
-    $controlledbynm = 'false'
+    $controlledbynm = 'no'
   }
 
   concat::fragment { "ifcfg-${device}_nmcontrolled":
@@ -95,7 +95,7 @@ define networkmanager::interface (
   if ($onboot) {
     $enableonboot = 'yes'
   } else {
-    $enableonboot = 'false'
+    $enableonboot = 'no'
   }
 
   concat::fragment { "ifcfg-${device}_onboot":
@@ -107,7 +107,7 @@ define networkmanager::interface (
   if ($defroute) {
     $enabledefroute = 'yes'
   } else {
-    $enabledefroute = 'false'
+    $enabledefroute = 'no'
   }
 
   concat::fragment { "ifcfg-${device}_defroute":
@@ -119,7 +119,7 @@ define networkmanager::interface (
   if ($peerdns) {
     $enablepeerdns = 'yes'
   } else {
-    $enablepeerdns = 'false'
+    $enablepeerdns = 'no'
   }
 
   concat::fragment { "ifcfg-${device}_peerdns":
@@ -131,7 +131,7 @@ define networkmanager::interface (
   if ($peerroutes) {
     $enablepeerroutes = 'yes'
   } else {
-    $enablepeerroutes = 'false'
+    $enablepeerroutes = 'no'
   }
 
   concat::fragment { "ifcfg-${device}_peerroutes":
