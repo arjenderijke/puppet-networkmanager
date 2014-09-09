@@ -8,6 +8,7 @@ describe 'networkmanager::interface' do
   let(:title) { 'interface1' }
   let(:params) { 
     { :device => 'eth0', 
+      :hwaddr => 'aa:bb:cc:dd:ee:ff',
       :bootproto => 'none',
       :ipaddr => '10.0.0.1',
       :netmask => '255.255.255.0',

@@ -1,6 +1,6 @@
 include networkmanager
 
-networkmanager::interface { 'interface1': 
+networkmanager::interface { 'interface1':
   device    => 'eth0',
   hwaddr    => '00:11:22:33:44:55',
   bootproto => 'none',

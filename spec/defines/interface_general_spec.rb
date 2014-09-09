@@ -8,6 +8,7 @@ describe 'networkmanager::interface' do
   let(:title) { 'interface1' }
   let(:params) { 
     { :device => 'eth0', 
+      :hwaddr => '00:11:22:33:44:55',
     } 
     
   }
