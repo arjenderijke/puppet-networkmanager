@@ -48,6 +48,7 @@ class networkmanager {
   }
 
   exec { 'nmcli_con_reload':
-    command => '/usr/bin/nmcli con reload',
+    command     => '/usr/bin/nmcli con reload',
+    refreshonly => true,
   }
 }
