@@ -14,7 +14,8 @@ define networkmanager::interface (
   $onboot = true,
   $defroute = true,
   $peerdns = true,
-  $peerroutes = true
+  $peerroutes = true,
+  $gateway = undef,
 ) {
   if (!defined(Class['networkmanager'])) {
     fail('You must include the base class before defining an interface')
@@ -168,5 +169,13 @@ define networkmanager::interface (
     target  => "ifcfg-${device}",
     content => "BOOTPROTO=${bootproto}\n",
     order   => '17',
+  }
+
+  if ($gateway == nil) {
+    concat::fragment { "ifcfg-${device}_gateway":
+      target  => "ifcfg-${device}",
+      content => "GATEWAY=${gateway}\n",
+      order   => '18',
+    }
   }
 }
