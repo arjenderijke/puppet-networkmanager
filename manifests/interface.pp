@@ -163,4 +163,10 @@ define networkmanager::interface (
     content => "IPV6_AUTOCONF=no\n",
     order   => '16',
   }
+
+  concat::fragment { "ifcfg-${device}_bootproto":
+    target  => "ifcfg-${device}",
+    content => "BOOTPROTO=${bootproto}\n",
+    order   => '17',
+  }
 }
