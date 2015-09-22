@@ -6,7 +6,7 @@ describe 'networkmanager' do
     should contain_service('NetworkManager').with(
                                                   'ensure' => 'running',
                                                   'enable' => true,
-                                                  'require' => 'Package[NetworkManager]',
+                                                  'require' => 'Package[NetworkManager]'
 
                                                   )
     should contain_package('NetworkManager').with_ensure('installed')
