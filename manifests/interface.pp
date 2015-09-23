@@ -171,7 +171,7 @@ define networkmanager::interface (
     order   => '17',
   }
 
-  if ($gateway == nil) {
+  if ($gateway != undef) {
     concat::fragment { "ifcfg-${device}_gateway":
       target  => "ifcfg-${device}",
       content => "GATEWAY=${gateway}\n",
