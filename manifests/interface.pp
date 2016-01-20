@@ -16,6 +16,7 @@ define networkmanager::interface (
   $peerdns = true,
   $peerroutes = true,
   $gateway = undef,
+  $zone = undef,
 ) {
   if (!defined(Class['networkmanager'])) {
     fail('You must include the base class before defining an interface')
@@ -176,6 +177,14 @@ define networkmanager::interface (
       target  => "ifcfg-${device}",
       content => "GATEWAY=${gateway}\n",
       order   => '18',
+    }
+  }
+
+  if ($zone != undef) {
+    concat::fragment { "ifcfg-${device}_zone":
+      target  => "ifcfg-${device}",
+      content => "ZONE=${zone}\n",
+      order   => '19',
     }
   }
 }
