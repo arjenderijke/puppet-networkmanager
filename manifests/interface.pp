@@ -18,6 +18,7 @@ define networkmanager::interface (
   $gateway = undef,
   $zone = undef,
   $dns1 = undef,
+  $search = undef,
 ) {
   if (!defined(Class['networkmanager'])) {
     fail('You must include the base class before defining an interface')
@@ -194,6 +195,14 @@ define networkmanager::interface (
       target  => "ifcfg-${device}",
       content => "DNS1=${dns1}\n",
       order   => '20',
+    }
+  }
+
+  if ($search != undef) {
+    concat::fragment { "ifcfg-${device}_search":
+      target  => "ifcfg-${device}",
+      content => "SEARCH=${search}\n",
+      order   => '21',
     }
   }
 }
