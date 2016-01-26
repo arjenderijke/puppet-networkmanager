@@ -18,6 +18,7 @@ define networkmanager::interface (
   $gateway = undef,
   $zone = undef,
   $dns1 = undef,
+  $dns2 = undef,
   $search = undef,
 ) {
   if (!defined(Class['networkmanager'])) {
@@ -198,11 +199,19 @@ define networkmanager::interface (
     }
   }
 
+  if ($dns2 != undef) {
+    concat::fragment { "ifcfg-${device}_dns2":
+      target  => "ifcfg-${device}",
+      content => "DNS2=${dns2}\n",
+      order   => '21',
+    }
+  }
+
   if ($search != undef) {
     concat::fragment { "ifcfg-${device}_search":
       target  => "ifcfg-${device}",
       content => "SEARCH=${search}\n",
-      order   => '21',
+      order   => '22',
     }
   }
 }
