@@ -60,4 +60,12 @@ describe 'networkmanager::interface' do
 
   it { should contain_concat__fragment("ifcfg-#{params[:device]}_ipv6autoconf").with_content("IPV6_AUTOCONF=no\n") }
 
+  it { should_not contain_concat__fragment("ifcfg-#{params[:device]}_zone") }
+
+  it { should_not contain_concat__fragment("ifcfg-#{params[:device]}_dns1") }
+
+  it { should_not contain_concat__fragment("ifcfg-#{params[:device]}_dns2") }
+
+  it { should_not contain_concat__fragment("ifcfg-#{params[:device]}_search") }
+
 end
