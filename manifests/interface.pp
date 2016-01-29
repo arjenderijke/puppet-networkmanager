@@ -20,6 +20,7 @@ define networkmanager::interface (
   $dns1 = undef,
   $dns2 = undef,
   $search = undef,
+  $ethtool_opts = undef,
 ) {
   if (!defined(Class['networkmanager'])) {
     fail('You must include the base class before defining an interface')
@@ -212,6 +213,14 @@ define networkmanager::interface (
       target  => "ifcfg-${device}",
       content => "SEARCH=${search}\n",
       order   => '22',
+    }
+  }
+
+  if ($ethtool_opts != undef) {
+    concat::fragment { "ifcfg-${device}_ethtool_opts":
+      target  => "ifcfg-${device}",
+      content => "ETHTOOL_OPTS=${ethtool_opts}\n",
+      order   => '23',
     }
   }
 }
