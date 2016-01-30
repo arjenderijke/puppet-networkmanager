@@ -17,6 +17,7 @@ describe 'networkmanager::interface' do
       :dns1 => '10.0.0.5',
       :dns2 => '10.0.0.6',
       :search => 'example.com',
+      :ethtool_opts => 'autoneg off',
     } 
   }
 
@@ -35,5 +36,7 @@ describe 'networkmanager::interface' do
   it { should contain_concat__fragment("ifcfg-#{params[:device]}_dns2").with_content("DNS2=#{params[:dns2]}\n") }
 
   it { should contain_concat__fragment("ifcfg-#{params[:device]}_search").with_content("SEARCH=#{params[:search]}\n") }
+
+  it { should contain_concat__fragment("ifcfg-#{params[:device]}_ethtool_opts").with_content("ETHTOOL_OPTS=\"#{params[:ethtool_opts]}\"\n") }
 
 end

@@ -219,7 +219,7 @@ define networkmanager::interface (
   if ($ethtool_opts != undef) {
     concat::fragment { "ifcfg-${device}_ethtool_opts":
       target  => "ifcfg-${device}",
-      content => "ETHTOOL_OPTS=${ethtool_opts}\n",
+      content => "ETHTOOL_OPTS=\"${ethtool_opts}\"\n",
       order   => '23',
     }
   }

@@ -68,4 +68,6 @@ describe 'networkmanager::interface' do
 
   it { should_not contain_concat__fragment("ifcfg-#{params[:device]}_search") }
 
+  it { should_not contain_concat__fragment("ifcfg-#{params[:device]}_ethtool_ops") }
+
 end
