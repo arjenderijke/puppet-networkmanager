@@ -21,7 +21,7 @@ define networkmanager::interface (
   $dns2 = undef,
   $search = undef,
   $ethtool_opts = undef,
-  dhcp_hostname = undef,
+  $dhcp_hostname = undef,
 ) {
   if (!defined(Class['networkmanager'])) {
     fail('You must include the base class before defining an interface')
