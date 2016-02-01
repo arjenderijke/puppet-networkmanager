@@ -27,4 +27,14 @@ describe 'networkmanager::interface' do
 
   it { should_not contain_concat__fragment("ifcfg-#{params[:device]}_gateway").with_content("GATEWAY=\n") }
 
+  it { should_not contain_concat__fragment("ifcfg-#{params[:device]}_zone") }
+
+  it { should_not contain_concat__fragment("ifcfg-#{params[:device]}_dns1") }
+
+  it { should_not contain_concat__fragment("ifcfg-#{params[:device]}_dns2") }
+
+  it { should_not contain_concat__fragment("ifcfg-#{params[:device]}_search") }
+
+  it { should_not contain_concat__fragment("ifcfg-#{params[:device]}_ethtool_ops") }
+  it { should_not contain_concat__fragment("ifcfg-#{params[:device]}_dhcp_hostname") }
 end

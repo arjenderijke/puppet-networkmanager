@@ -18,6 +18,7 @@ describe 'networkmanager::interface' do
       :dns2 => '10.0.0.6',
       :search => 'example.com',
       :ethtool_opts => 'autoneg off',
+      :dhcp_hostname => 'host',
     } 
   }
 
@@ -38,5 +39,7 @@ describe 'networkmanager::interface' do
   it { should contain_concat__fragment("ifcfg-#{params[:device]}_search").with_content("SEARCH=#{params[:search]}\n") }
 
   it { should contain_concat__fragment("ifcfg-#{params[:device]}_ethtool_opts").with_content("ETHTOOL_OPTS=\"#{params[:ethtool_opts]}\"\n") }
+
+  it { should contain_concat__fragment("ifcfg-#{params[:device]}_dhcp_hostname").with_content("DHCP_HOSTNAME=#{params[:dhcp_hostname]}\n") }
 
 end
