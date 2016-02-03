@@ -242,7 +242,7 @@ define networkmanager::interface (
 
   # Only add line to configuration file if value is
   # different from the default.
-  if (not $hotplug) {
+  unless ($hotplug) {
     concat::fragment { "ifcfg-${device}_hotplug":
       target  => "ifcfg-${device}",
       content => "HOTPLUG=${ishotplug}\n",
