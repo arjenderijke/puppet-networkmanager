@@ -22,6 +22,7 @@ define networkmanager::interface (
   $search = undef,
   $ethtool_opts = undef,
   $dhcp_hostname = undef,
+  $hotplug = true,
 ) {
   if (!defined(Class['networkmanager'])) {
     fail('You must include the base class before defining an interface')
@@ -230,6 +231,22 @@ define networkmanager::interface (
       target  => "ifcfg-${device}",
       content => "DHCP_HOSTNAME=${dhcp_hostname}\n",
       order   => '24',
+    }
+  }
+
+  if ($hotplug) {
+    $ishotplug = 'yes'
+  } else {
+    $ishotplug = 'no'
+  }
+
+  # Only add line to configuration file if value is
+  # different from the default.
+  if (not $hotplug) {
+    concat::fragment { "ifcfg-${device}_hotplug":
+      target  => "ifcfg-${device}",
+      content => "HOTPLUG=${ishotplug}\n",
+      order   => '25',
     }
   }
 }
