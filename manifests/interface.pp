@@ -36,7 +36,9 @@ define networkmanager::interface (
   validate_bool($peerdns)
   validate_bool($peerroutes)
   validate_bool($hotplug)
-  validate_integer($linkdelay)
+  if ($linkdely != undef) {
+    validate_integer($linkdelay)
+  }
 
   concat { "ifcfg-${device}":
     ensure => present,
