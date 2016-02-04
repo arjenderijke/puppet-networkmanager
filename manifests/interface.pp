@@ -36,7 +36,7 @@ define networkmanager::interface (
   validate_bool($peerdns)
   validate_bool($peerroutes)
   validate_bool($hotplug)
-  if ($linkdely != undef) {
+  if ($linkdelay != undef) {
     validate_integer($linkdelay)
   }
 
