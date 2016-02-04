@@ -23,6 +23,7 @@ define networkmanager::interface (
   $ethtool_opts = undef,
   $dhcp_hostname = undef,
   $hotplug = true,
+  $linkdelay = undef,
 ) {
   if (!defined(Class['networkmanager'])) {
     fail('You must include the base class before defining an interface')
@@ -34,6 +35,8 @@ define networkmanager::interface (
   validate_bool($defroute)
   validate_bool($peerdns)
   validate_bool($peerroutes)
+  validate_bool($hotplug)
+  validate_integer($linkdelay)
 
   concat { "ifcfg-${device}":
     ensure => present,
@@ -247,6 +250,14 @@ define networkmanager::interface (
       target  => "ifcfg-${device}",
       content => "HOTPLUG=${ishotplug}\n",
       order   => '25',
+    }
+  }
+
+  if ($linkdelay != undef) {
+    concat::fragment { "ifcfg-${device}_linkdelay":
+      target  => "ifcfg-${device}",
+      content => "LINKDELAY=${linkdelay}\n",
+      order   => '26',
     }
   }
 }
