@@ -271,7 +271,7 @@ define networkmanager::interface (
     $isuserctl = 'no'
   }
 
-  unless ($userctl) {
+  if ($userctl) {
     concat::fragment { "ifcfg-${device}_userctl":
       target  => "ifcfg-${device}",
       content => "HOTPLUG=${isuserctl}\n",
