@@ -72,4 +72,10 @@ describe 'networkmanager::interface' do
 
   it { should_not contain_concat__fragment("ifcfg-#{params[:device]}_dhcp_hostname") }
 
+  it { should_not contain_concat__fragment("ifcfg-#{params[:device]}_hotplug") }
+
+  it { should_not contain_concat__fragment("ifcfg-#{params[:device]}_linkdelay") }
+
+  it { should_not contain_concat__fragment("ifcfg-#{params[:device]}_userctl") }
+
 end
