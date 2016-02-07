@@ -14,15 +14,17 @@ describe 'networkmanager::interface' do
       :defroute => false,
       :peerdns => false,
       :peerroutes => false,
+      :hotplug => false,
     }    
   }
 
-  let(:controlledbynm) { 'no' } 
-  let(:enableonboot) { 'no' } 
-  let(:enabledefroute) {'no'}
-  let(:enablepeerdns) {'no'}
+  let (:controlledbynm) { 'no' }
+  let (:enableonboot) { 'no' }
+  let (:enabledefroute) {'no'}
+  let (:enablepeerdns) {'no'}
   let (:enablepeerroutes) {'no'}
- 
+  let (:hotplug) {'no'}
+
   it { should contain_concat__fragment("ifcfg-#{params[:device]}_nmcontrolled").with_content("NM_CONTROLLED=#{controlledbynm}\n") }
 
   it { should contain_concat__fragment("ifcfg-#{params[:device]}_onboot").with_content("ONBOOT=#{enableonboot}\n") }
@@ -32,5 +34,7 @@ describe 'networkmanager::interface' do
   it { should contain_concat__fragment("ifcfg-#{params[:device]}_peerdns").with_content("PEERDNS=#{enablepeerdns}\n") }
 
   it { should contain_concat__fragment("ifcfg-#{params[:device]}_peerroutes").with_content("PEERROUTES=#{enablepeerroutes}\n") }
+
+  it { should contain_concat__fragment("ifcfg-#{params[:device]}_hotplug").with_content("HOTPLUG=#{hotplug}\n") }
 
 end
