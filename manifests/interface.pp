@@ -25,6 +25,9 @@ define networkmanager::interface (
   $hotplug = true,
   $linkdelay = undef,
   $userctl = false,
+  $add_bridge = false,
+  $bridge_device = undef,
+  $bridge_name = undef,
 ) {
   if (!defined(Class['networkmanager'])) {
     fail('You must include the base class before defining an interface')
@@ -41,6 +44,13 @@ define networkmanager::interface (
     validate_integer($linkdelay)
   }
   validate_bool($userctl)
+  validate_bool($add_bridge)
+
+  if ($add_bridge) {
+    include networkmanager::bridge_interface
+  } else {
+    include networkmanager::default_interface
+  }
 
   concat { "ifcfg-${device}":
     ensure => present,
