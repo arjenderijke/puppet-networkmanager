@@ -1,6 +1,6 @@
 include networkmanager
 
-networkmanager::interface { 'infiniband11':
+networkmanager::interface { 'infiniband1':
   device         => 'ib0',
   hwaddr         => '00:11:22:33:44:55',
   bootproto      => 'none',
