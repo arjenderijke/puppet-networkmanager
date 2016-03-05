@@ -26,7 +26,7 @@ describe 'networkmanager::interface' do
 
   it { should contain_concat__fragment("ifcfg-#{params[:device]}_broadcast").with_content("BROADCAST=#{params[:broadcast]}\n") }
 
-  it { should contain_concat__fragment("ifcfg-#{params[:device]}_interface_type").with_content("TYPE=#{params[:interface_type]}\n") }
+  it { should contain_concat__fragment("ifcfg-#{params[:device]}_interface_type").with_content("TYPE=#{params[:interface_type].capitalize}\n") }
 
   it { should_not contain_concat__fragment("ifcfg-#{params[:device]}_gateway").with_content("GATEWAY=\n") }
 
