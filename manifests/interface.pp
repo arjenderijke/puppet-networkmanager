@@ -11,6 +11,7 @@ define networkmanager::interface (
   $network = undef,
   $broadcast = undef,
   $bootproto = 'dhcp',
+  $interface_type = 'ethernet',
   $onboot = true,
   $defroute = true,
   $peerdns = true,
@@ -36,6 +37,7 @@ define networkmanager::interface (
   validate_bool($nm_controlled)
   validate_bool($onboot)
   validate_re($bootproto, '^(none|dhcp)$')
+  validate_re($interface_type, '^(ethernet|infiniband)$')
   validate_bool($defroute)
   validate_bool($peerdns)
   validate_bool($peerroutes)
@@ -171,10 +173,24 @@ define networkmanager::interface (
     order   => '13',
   }
 
-  concat::fragment { "ifcfg-${device}_type":
-    target  => "ifcfg-${device}",
-    content => "TYPE=Ethernet\n",
-    order   => '14',
+  case $interface_type {
+    'ethernet' : {
+      concat::fragment { "ifcfg-${device}_type":
+        target  => "ifcfg-${device}",
+        content => "TYPE=Ethernet\n",
+        order   => '14',
+      }
+    }
+    'infiniband' : {
+      concat::fragment { "ifcfg-${device}_type":
+        target  => "ifcfg-${device}",
+        content => "TYPE=Infiniband\n",
+        order   => '14',
+      }
+    }
+    default : {
+      fail('Unknown interface type in interface configuration')
+    }
   }
 
   concat::fragment { "ifcfg-${device}_ipv4failurefatal":
