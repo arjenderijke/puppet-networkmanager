@@ -11,4 +11,8 @@
 
 ## v0.1.0 (2015-09-23)
 
-### Features
+**Features**
+
+* Set static ip address
+* Set dynamic ip address
+* Test on Travis CI
