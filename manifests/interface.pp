@@ -48,11 +48,12 @@ define networkmanager::interface (
   validate_bool($userctl)
   validate_bool($add_bridge)
 
-  if ($add_bridge) {
-    include networkmanager::bridge_interface
-  } else {
-    include networkmanager::default_interface
-  }
+#  if ($add_bridge) {
+#    include networkmanager::bridge_interface
+#  } else {
+#    include networkmanager::default_interface
+#  }
+  ifcfg_file {'Default': }
 
   concat { "ifcfg-${device}":
     ensure => present,
