@@ -1,12 +1,12 @@
 {
   "name": "arjenderijke-networkmanager",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "arjenderijke",
   "summary": "Puppet module for configuring NetworkManager",
   "license": "Apache 2.0",
-  "source": "",
-  "project_page": null,
-  "issues_url": null,
+  "source": "https://github.com/arjenderijke/puppet-networkmanager/",
+  "project_page": "https://github.com/arjenderijke/puppet-networkmanager/",
+  "issues_url": "https://github.com/arjenderijke/puppet-networkmanager/issues",
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",
