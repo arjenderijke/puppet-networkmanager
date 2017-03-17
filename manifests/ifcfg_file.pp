@@ -162,6 +162,13 @@ define networkmanager::ifcfg_file (
         order   => '14',
       }
     }
+    'bridge' : {
+      concat::fragment { "ifcfg-${device}_type":
+        target  => "ifcfg-${device}",
+        content => "TYPE=Bridge\n",
+        order   => '14',
+      }
+    }
     default : {
       fail('Unknown interface type in interface configuration')
     }

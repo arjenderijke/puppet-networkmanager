@@ -26,8 +26,6 @@ define networkmanager::interface (
   $hotplug = true,
   $linkdelay = undef,
   $userctl = false,
-  $add_bridge = false,
-  $bridge_device = undef,
   $bridge_name = undef,
 ) {
   if (!defined(Class['networkmanager'])) {
@@ -37,7 +35,7 @@ define networkmanager::interface (
   validate_bool($nm_controlled)
   validate_bool($onboot)
   validate_re($bootproto, '^(none|dhcp)$')
-  validate_re($interface_type, '^(ethernet|infiniband)$')
+  validate_re($interface_type, '^(ethernet|infiniband|bridge)$')
   validate_bool($defroute)
   validate_bool($peerdns)
   validate_bool($peerroutes)
@@ -46,36 +44,118 @@ define networkmanager::interface (
     validate_integer($linkdelay)
   }
   validate_bool($userctl)
-  validate_bool($add_bridge)
 
-#  if ($add_bridge) {
-#    include networkmanager::bridge_interface
-#  } else {
-#    include networkmanager::default_interface
-#  }
-  ifcfg_file {'Default':
-    device         => $device,
-    nm_controlled  =>$nm_controlled,
-    hwaddr         => $hwaddr,
-    ipaddr         => $ipaddr,
-    netmask        => $netmask,
-    network        => $network,
-    broadcast      => $broadcast,
-    bootproto      => $bootproto,
-    interface_type => $interface_type,
-    onboot         => $onboot,
-    defroute       => $defroute,
-    peerdns        => $peerdns,
-    peerroutes     => $peerroutes,
-    gateway        => $gateway,
-    zone           => $zone,
-    dns1           => $dns1,
-    dns2           => $dns2,
-    search         => $search,
-    ethtool_opts   => $ethtool_opts,
-    dhcp_hostname  => $dhcp_hostname,
-    hotplug        => $hotplug,
-    linkdelay      => $linkdelay,
-    userctl        => $userctl,
+  case $interface_type {
+    ethernet: {
+      ifcfg_file {"interface_${device}":
+        device         => $device,
+        nm_controlled  => $nm_controlled,
+        hwaddr         => $hwaddr,
+        ipaddr         => $ipaddr,
+        netmask        => $netmask,
+        network        => $network,
+        broadcast      => $broadcast,
+        bootproto      => $bootproto,
+        interface_type => $interface_type,
+        onboot         => $onboot,
+        defroute       => $defroute,
+        peerdns        => $peerdns,
+        peerroutes     => $peerroutes,
+        gateway        => $gateway,
+        zone           => $zone,
+        dns1           => $dns1,
+        dns2           => $dns2,
+        search         => $search,
+        ethtool_opts   => $ethtool_opts,
+        dhcp_hostname  => $dhcp_hostname,
+        hotplug        => $hotplug,
+        linkdelay      => $linkdelay,
+        userctl        => $userctl,
+      }
+    }
+    infiniband: {
+      ifcfg_file {"interface_${device}":
+        device         => $device,
+        nm_controlled  => $nm_controlled,
+        hwaddr         => $hwaddr,
+        ipaddr         => $ipaddr,
+        netmask        => $netmask,
+        network        => $network,
+        broadcast      => $broadcast,
+        bootproto      => $bootproto,
+        interface_type => $interface_type,
+        onboot         => $onboot,
+        defroute       => $defroute,
+        peerdns        => $peerdns,
+        peerroutes     => $peerroutes,
+        gateway        => $gateway,
+        zone           => $zone,
+        dns1           => $dns1,
+        dns2           => $dns2,
+        search         => $search,
+        ethtool_opts   => $ethtool_opts,
+        dhcp_hostname  => $dhcp_hostname,
+        hotplug        => $hotplug,
+        linkdelay      => $linkdelay,
+        userctl        => $userctl,
+      }
+    }
+    bridge: {
+      ifcfg_file {"interface_${device}":
+        device         => $device,
+        nm_controlled  => $nm_controlled,
+        hwaddr         => $hwaddr,
+        ipaddr         => $ipaddr,
+        netmask        => $netmask,
+        network        => $network,
+        broadcast      => $broadcast,
+        bootproto      => $bootproto,
+        interface_type => $interface_type,
+        onboot         => $onboot,
+        defroute       => $defroute,
+        peerdns        => $peerdns,
+        peerroutes     => $peerroutes,
+        gateway        => $gateway,
+        zone           => $zone,
+        dns1           => $dns1,
+        dns2           => $dns2,
+        search         => $search,
+        ethtool_opts   => $ethtool_opts,
+        dhcp_hostname  => $dhcp_hostname,
+        hotplug        => $hotplug,
+        linkdelay      => $linkdelay,
+        userctl        => $userctl,
+      }
+
+      ifcfg_file {"interface_${bridge_name}":
+        device         => $bridge_name,
+        nm_controlled  => $nm_controlled,
+        hwaddr         => $hwaddr,
+        ipaddr         => $ipaddr,
+        netmask        => $netmask,
+        network        => $network,
+        broadcast      => $broadcast,
+        bootproto      => $bootproto,
+        interface_type => $interface_type,
+        onboot         => $onboot,
+        defroute       => $defroute,
+        peerdns        => $peerdns,
+        peerroutes     => $peerroutes,
+        gateway        => $gateway,
+        zone           => $zone,
+        dns1           => $dns1,
+        dns2           => $dns2,
+        search         => $search,
+        ethtool_opts   => $ethtool_opts,
+        dhcp_hostname  => $dhcp_hostname,
+        hotplug        => $hotplug,
+        linkdelay      => $linkdelay,
+        userctl        => $userctl,
+      }
+
+    }
+    default: {
+      fail('Unknown interface type in interface configuration')
+    }
   }
 }
