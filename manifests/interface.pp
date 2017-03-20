@@ -26,7 +26,7 @@ define networkmanager::interface (
   $hotplug = true,
   $linkdelay = undef,
   $userctl = false,
-  $bridge_name = undef,
+  $bridge = undef,
 ) {
   if (!defined(Class['networkmanager'])) {
     fail('You must include the base class before defining an interface')
@@ -44,6 +44,9 @@ define networkmanager::interface (
     validate_integer($linkdelay)
   }
   validate_bool($userctl)
+  if (($interface_type == 'bridge') and ($bridge == undef)) {
+    fail('You must define the bridge name')
+  }
 
   case $interface_type {
     ethernet: {
@@ -109,7 +112,7 @@ define networkmanager::interface (
         netmask        => $netmask,
         network        => $network,
         broadcast      => $broadcast,
-        bootproto      => $bootproto,
+        bootproto      => 'none',
         interface_type => $interface_type,
         onboot         => $onboot,
         defroute       => $defroute,
@@ -125,10 +128,11 @@ define networkmanager::interface (
         hotplug        => $hotplug,
         linkdelay      => $linkdelay,
         userctl        => $userctl,
+        bridge         => $bridge,
       }
 
-      ifcfg_file {"interface_${bridge_name}":
-        device         => $bridge_name,
+      ifcfg_file {"interface_${bridge}":
+        device         => $bridge,
         nm_controlled  => $nm_controlled,
         hwaddr         => $hwaddr,
         ipaddr         => $ipaddr,
@@ -151,6 +155,7 @@ define networkmanager::interface (
         hotplug        => $hotplug,
         linkdelay      => $linkdelay,
         userctl        => $userctl,
+        bridge         => undef,
       }
 
     }

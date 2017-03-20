@@ -26,6 +26,7 @@ define networkmanager::ifcfg_file (
   $hotplug = true,
   $linkdelay = undef,
   $userctl = false,
+  $bridge = undef,
 )  {
 
   concat { "ifcfg-${device}":
@@ -283,6 +284,14 @@ define networkmanager::ifcfg_file (
       target  => "ifcfg-${device}",
       content => "HOTPLUG=${isuserctl}\n",
       order   => '27',
+    }
+  }
+
+  if ($bridge != undef) {
+    concat::fragment { "ifcfg-${device}_bridge":
+      target  => "ifcfg-${device}",
+      content => "BRIDGE=${bridge}\n",
+      order   => '28',
     }
   }
 }
