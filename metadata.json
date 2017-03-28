@@ -1,6 +1,6 @@
 {
   "name": "arjenderijke-networkmanager",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "arjenderijke",
   "summary": "Puppet module for configuring NetworkManager",
   "license": "Apache 2.0",
