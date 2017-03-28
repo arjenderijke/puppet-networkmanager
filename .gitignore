@@ -2,4 +2,5 @@
 spec/fixtures/modules/concat/
 spec/fixtures/modules/stdlib/
 .bundle
+Gemfile.lock
 vendor
