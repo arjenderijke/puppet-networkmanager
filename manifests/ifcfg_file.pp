@@ -69,28 +69,36 @@ define networkmanager::ifcfg_file (
   }
 
   if ($bootproto == 'none') {
-    concat::fragment { "ifcfg-${device}_ipaddr":
-      target  => "ifcfg-${device}",
-      content => "IPADDR=${ipaddr}\n",
-      order   => '05',
+    if ($ipaddr != undef) {
+      concat::fragment { "ifcfg-${device}_ipaddr":
+        target  => "ifcfg-${device}",
+        content => "IPADDR=${ipaddr}\n",
+        order   => '05',
+      }
     }
 
-    concat::fragment { "ifcfg-${device}_netmask":
-      target  => "ifcfg-${device}",
-      content => "NETMASK=${netmask}\n",
-      order   => '06',
+    if ($netmask != undef) {
+      concat::fragment { "ifcfg-${device}_netmask":
+        target  => "ifcfg-${device}",
+        content => "NETMASK=${netmask}\n",
+        order   => '06',
+      }
     }
 
-    concat::fragment { "ifcfg-${device}_network":
-      target  => "ifcfg-${device}",
-      content => "NETWORK=${network}\n",
-      order   => '07',
+    if ($network != undef) {
+      concat::fragment { "ifcfg-${device}_network":
+        target  => "ifcfg-${device}",
+        content => "NETWORK=${network}\n",
+        order   => '07',
+      }
     }
 
-    concat::fragment { "ifcfg-${device}_broadcast":
-      target  => "ifcfg-${device}",
-      content => "BROADCAST=${broadcast}\n",
-      order   => '08',
+    if ($broadcast != undef) {
+      concat::fragment { "ifcfg-${device}_broadcast":
+        target  => "ifcfg-${device}",
+        content => "BROADCAST=${broadcast}\n",
+        order   => '08',
+      }
     }
   }
 

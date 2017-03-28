@@ -5,11 +5,15 @@ describe 'networkmanager::interface' do
     { :concat_basedir => '/dne' } 
   end
 
-  let(:title) { 'bridge2' }
+  let(:title) { 'bridge1' }
   let(:params) { 
-    { :device => 'eth1',
+    { :device => 'eth0', 
       :hwaddr => 'aa:bb:cc:dd:ee:ff',
-      :bootproto => 'dhcp',
+      :bootproto => 'none',
+      :ipaddr => '10.0.0.1',
+      :netmask => '255.255.255.0',
+      :network => '10.0.0.0',
+      :broadcast => '10.0.0.255',
       :interface_type => 'bridge',
       :bridge => 'br0',
     } 
@@ -40,13 +44,13 @@ describe 'networkmanager::interface' do
   it { should_not contain_concat__fragment("ifcfg-#{params[:device]}_ethtool_ops") }
   it { should_not contain_concat__fragment("ifcfg-#{params[:device]}_dhcp_hostname") }
 
-  it { should_not contain_concat__fragment("ifcfg-#{params[:bridge]}_ipaddr").with_content("IPADDR=#{params[:ipaddr]}\n") }
+  it { should contain_concat__fragment("ifcfg-#{params[:bridge]}_ipaddr").with_content("IPADDR=#{params[:ipaddr]}\n") }
 
-  it { should_not contain_concat__fragment("ifcfg-#{params[:bridge]}_netmask").with_content("NETMASK=#{params[:netmask]}\n") }
+  it { should contain_concat__fragment("ifcfg-#{params[:bridge]}_netmask").with_content("NETMASK=#{params[:netmask]}\n") }
 
-  it { should_not contain_concat__fragment("ifcfg-#{params[:bridge]}_network").with_content("NETWORK=#{params[:network]}\n") }
+  it { should contain_concat__fragment("ifcfg-#{params[:bridge]}_network").with_content("NETWORK=#{params[:network]}\n") }
 
-  it { should_not contain_concat__fragment("ifcfg-#{params[:bridge]}_broadcast").with_content("BROADCAST=#{params[:broadcast]}\n") }
+  it { should contain_concat__fragment("ifcfg-#{params[:bridge]}_broadcast").with_content("BROADCAST=#{params[:broadcast]}\n") }
 
   it { should contain_concat__fragment("ifcfg-#{params[:bridge]}_type").with_content("TYPE=#{params[:interface_type].capitalize}\n") }
 
