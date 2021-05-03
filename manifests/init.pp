@@ -35,7 +35,9 @@
 #
 # Copyright 2014 Arjen de Rijke, unless otherwise noted.
 #
-class networkmanager {
+class networkmanager(
+  Boolean $dns_enabled = true,
+) {
 
   package { 'NetworkManager':
     ensure => installed,
@@ -50,5 +52,20 @@ class networkmanager {
   exec { 'nmcli_con_reload':
     command     => '/usr/bin/nmcli con reload',
     refreshonly => true,
+  }
+
+  if ($dns_enabled) {
+    file { '/etc/NetworkManager/conf.d/90-dns-none.conf':
+      ensure  => absent,
+      require => Package['NetworkManager'],
+      notify  => Service['NetworkManager'],
+    }
+  } else {
+    file { '/etc/NetworkManager/conf.d/90-dns-none.conf':
+      ensure  => present,
+      content => epp("${module_name}/90-dns-none.epp"),
+      require => Package['NetworkManager'],
+      notify  => Service['NetworkManager'],
+    }
   }
 }
