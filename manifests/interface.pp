@@ -50,7 +50,7 @@ define networkmanager::interface (
 
   case $interface_type {
     ethernet: {
-      ifcfg_file {"interface_${device}":
+      networkmanager::ifcfg_file {"interface_${device}":
         device         => $device,
         nm_controlled  => $nm_controlled,
         hwaddr         => $hwaddr,
@@ -77,7 +77,7 @@ define networkmanager::interface (
       }
     }
     infiniband: {
-      ifcfg_file {"interface_${device}":
+      networkmanager::ifcfg_file {"interface_${device}":
         device         => $device,
         nm_controlled  => $nm_controlled,
         hwaddr         => $hwaddr,
@@ -104,7 +104,7 @@ define networkmanager::interface (
       }
     }
     bridge: {
-      ifcfg_file {"interface_${device}":
+      networkmanager::ifcfg_file {"interface_${device}":
         device         => $device,
         nm_controlled  => $nm_controlled,
         hwaddr         => $hwaddr,
@@ -131,7 +131,7 @@ define networkmanager::interface (
         bridge         => $bridge,
       }
 
-      ifcfg_file {"interface_${bridge}":
+      networkmanager::ifcfg_file {"interface_${bridge}":
         device         => $bridge,
         nm_controlled  => $nm_controlled,
         hwaddr         => $hwaddr,
